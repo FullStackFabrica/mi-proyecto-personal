@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Animales - FullStackFabrica</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .nav-links {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background: #74b9ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover {
+            background: #0984e3;
+            transform: translateY(-2px);
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .animal-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .animal-card:hover {
+            transform: translateY(-5px);
+        }
+        .animal-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid #74b9ff;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .animal-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        .animal-description {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .category-tag {
+            display: inline-block;
+            background: #74b9ff;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            color: #7f8c8d;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #74b9ff;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐾 Galería de Animales</h1>
+            <p class="subtitle">Una colección de adorables criaturas del reino animal</p>
+        </header>
+
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn">🏠 Inicio</a>
+            <a href="animales.html" class="nav-btn">🐾 Animales</a>
+        </div>
+
+        <div class="loading" id="loading">
+            Cargando animales adorables... 🐕🐱🦊
+        </div>
+
+        <div class="gallery" id="gallery" style="display: none;">
+            <!-- Las tarjetas se generan con JavaScript -->
+        </div>
+
+        <footer>
+            <p>&copy; 2025 FullStackFabrica - Galería de Animales</p>
+            <p>Imágenes obtenidas de APIs públicas gratuitas</p>
+        </footer>
+    </div>
+
+    <script>
+        // Array de animales con información
+        const animales = [
+            {
+                nombre: "Perrito Golden",
+                descripcion: "Los Golden Retriever son conocidos por su naturaleza amigable y su pelaje dorado brillante.",
+                categoria: "Doméstico",
+                imagen: "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=300&fit=crop"
+            },
+            {
+                nombre: "Gatito Naranja",
+                descripcion: "Los gatos naranjas son famosos por su personalidad juguetona y cariñosa.",
+                categoria: "Doméstico",
+                imagen: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=300&fit=crop"
+            },
+            {
+                nombre: "León Majestuoso",
+                descripcion: "El rey de la selva, conocido por su melena impresionante y su rugido poderoso.",
+                categoria: "Salvaje",
+                imagen: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=400&h=300&fit=crop"
+            },
+            {
+                nombre: "Elefante Sabio",
+                descripcion: "Los elefantes son los mamíferos terrestres más grandes y tienen una memoria excepcional.",
+                categoria: "Salvaje",
+                imagen: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=400&h=300&fit=crop"
+            },
+            {
+                nombre: "Panda Tierno",
+                descripcion: "Los pandas gigantes son adorables y están en peligro de extinción, famosos por comer bambú.",
+                categoria: "Salvaje",
+                imagen: "https://images.unsplash.com/photo-1539681404013-b6bac64c793d?w=400&h=300&fit=crop"
+            },
+            {
+                nombre: "Pingüino Elegante",
+                descripcion: "Los pingüinos son aves que no vuelan pero son excelentes nadadores.",
+                categoria: "Acuático",
+                imagen: "https://images.unsplash.com/photo-1551986782-d0169b3f8fa7?w=400&h=300&fit=crop"
+            },
+            {
+                nombre: "Zorro Astuto",
+                descripción: "Los zorros son conocidos por su inteligencia y su hermoso pelaje rojizo.",
+                categoria: "Salvaje",
+                imagen: "https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=400&h=300&fit=crop"
+            },
+            {
+                nombre: "Conejo Saltarín",
+                descripcion: "Los conejos son adorables mascotas conocidas por sus largas orejas y su capacidad de saltar.",
+                categoria: "Doméstico",
+                imagen: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400&h=300&fit=crop"
+            },
+            {
+                nombre: "Búho Nocturno",
+                descripcion: "Los búhos son aves rapaces nocturnas con una vista y oído excepcionales.",
+                categoria: "Salvaje",
+                imagen: "https://images.unsplash.com/photo-1591608971362-f08b2a75731a?w=400&h=300&fit=crop"
+            }
+        ];
+
+        function crearTarjetaAnimal(animal) {
+            return `
+                <div class="animal-card">
+                    <img src="${animal.imagen}" alt="${animal.nombre}" loading="lazy">
+                    <div class="card-content">
+                        <div class="animal-name">${animal.nombre}</div>
+                        <div class="animal-description">${animal.descripcion}</div>
+                        <span class="category-tag">${animal.categoria}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function cargarAnimales() {
+            const gallery = document.getElementById('gallery');
+            const loading = document.getElementById('loading');
+            
+            // Simular tiempo de carga
+            setTimeout(() => {
+                const htmlAnimales = animales.map(animal => crearTarjetaAnimal(animal)).join('');
+                gallery.innerHTML = htmlAnimales;
+                
+                loading.style.display = 'none';
+                gallery.style.display = 'grid';
+                
+                // Animación de entrada
+                const cards = document.querySelectorAll('.animal-card');
+                cards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 1500);
+        }
+
+        // Cargar animales cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', cargarAnimales);
+    </script>
+</body>
+</html>
