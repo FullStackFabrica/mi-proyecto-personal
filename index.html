@@ -38,6 +38,24 @@
             font-size: 1.2em;
             margin-bottom: 30px;
         }
+        .nav-links {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .nav-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
         .section {
             margin: 30px 0;
             padding: 20px;
@@ -83,6 +101,10 @@
             background: #2c3e50;
             color: white;
         }
+        .btn-animals {
+            background: #74b9ff;
+            color: white;
+        }
         .btn:hover {
             transform: translateY(-2px);
         }
@@ -101,6 +123,11 @@
             <h1>🚀 Mi Proyecto Personal</h1>
             <p class="subtitle">Bienvenido a mi espacio de desarrollo y experimentación</p>
         </header>
+
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn">🏠 Inicio</a>
+            <a href="animales.html" class="nav-btn">🐾 Animales</a>
+        </div>
 
         <div class="section">
             <h2>📋 Sobre este proyecto</h2>
@@ -131,9 +158,21 @@
             </ul>
         </div>
 
+        <div class="section">
+            <h2>🌟 Páginas del sitio</h2>
+            <p>Explora las diferentes secciones de mi proyecto:</p>
+            <ul>
+                <li><strong>Inicio:</strong> Información general del proyecto</li>
+                <li><strong>🐾 Galería de Animales:</strong> Una colección de adorables fotos de animales</li>
+            </ul>
+        </div>
+
         <div class="links">
             <a href="https://github.com/FullStackFabrica" class="btn btn-primary">
                 Ver mi GitHub
+            </a>
+            <a href="animales.html" class="btn btn-animals">
+                🐾 Ver Animales
             </a>
             <a href="#" class="btn btn-secondary">
                 Contactar
